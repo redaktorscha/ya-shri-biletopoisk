@@ -20,7 +20,7 @@
   z-index: 1;
   grid-area: header;
   display: flex;
-  padding: var(--padding-default);
+  padding: var(--padding-page);
   justify-content: space-between;
   align-items: center;
   background-color: var(--gray-1);
@@ -41,8 +41,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width:1.75rem;
-  height: 175.rem;
+  width: 1.75rem;
+  height: 1.75rem;
   font-size: 0.87rem;
   font-family: "Roboto";
   font-weight: 700;
@@ -69,24 +69,17 @@
   cursor: pointer;
 }
 
-.headerButtonIcon {
-  color: var(--white);
-}
-
 .headerButton:hover > .headerButtonIcon {
   color: var(--orange);
 }
 
 .mainSection {
   grid-area: main;
-  background-color: var(--background-muted);
-  padding: var(--padding-default);
-}
-
-.mainSection {
   display: flex;
-  flex-grow: 1;
   column-gap: 1.5rem;
+  background-color: var(--background-muted);
+  padding: var(--padding-page);
+  position: relative;
 }
 
 .mainContent {
@@ -94,25 +87,42 @@
   flex-grow: 1;
 }
 
-.asideBlock {
-  position: sticky;
-  top: 0;
-  width: 400px;
-  display: flex;
+.leftColumn {
+  /* position: sticky;
+  top: 0; */
+  width: 25rem;
+  /* display: flex;
   flex-flow: column nowrap;
-  padding: 1.5rem;
+  padding: var(--padding-element);
   align-items: flex-start;
   row-gap: 20px;
   flex-shrink: 0;
   background-color: var(--background-primary);
   color: var(--text-primary);
+  border-radius: var(--border-rad-default); */
+}
+.asideBlock {
+  position: fixed;
+  left: 1.5rem;
+  width: 25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  height: 54rem;
+  /* align-items: flex-start; */
+  padding: var(--padding-element);
   border-radius: var(--border-rad-default);
+  background: var(--white);
+}
+
+.asideBlock > h4 {
+  font-weight: 700;
+  font-size: 1rem;
 }
 
 .footerBlock {
   grid-area: footer;
   display: flex;
-  padding: var(--padding-default);
+  padding: var(--padding-page);
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;

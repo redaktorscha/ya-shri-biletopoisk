@@ -1,14 +1,14 @@
-@import-normalize;
 :root {
   --gray-1: #333333;
-  --background-muted: #F5F5F5;
-  --background-primary: #FFFFFF;
-  --white: #FFFFFF;
+  --background-muted: #f5f5f5;
+  --background-primary: #ffffff;
+  --white: #ffffff;
   --text-primary: #1b1f23;
   --orange: #ff5500;
   --orange-disabled: #ffa375;
 
-  --padding-default: 1.5rem 2rem;
+  --padding-page: 1.5rem 2rem;
+  --padding-element: 1.5rem;
 
   --border-rad-default: 8px;
 }
