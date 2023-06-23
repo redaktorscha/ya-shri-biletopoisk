@@ -1,0 +1,65 @@
+.accordionWrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  flex-grow: 1;
+  gap: 1.5rem;
+}
+
+.headingPrimary {
+  color: var(--text-primary);
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  line-height: 32px;
+}
+
+.accordionWrapperInner {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 1rem;
+}
+
+.accordionItemHeading {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  line-height: 32px;
+  padding-bottom: 1rem;
+}
+
+.accordionItemPanel {
+  padding-top: 1rem;
+}
+
+.accordionItemWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.accordionButton {
+  background-color: transparent;
+  border: none;
+  outline: transparent;
+  width: 20px;
+  height:20px;
+
+}
+
+.accordionButton:hover {
+  cursor: pointer;
+}
+
+.accordionItemHeadingWrapper {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.accordionButtonIcon {
+  color: var(--text-primary);
+}
