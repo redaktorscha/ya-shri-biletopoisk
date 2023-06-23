@@ -1,9 +1,65 @@
 .filmWrapper {
   display: flex;
   flex-flow: column nowrap;
+  align-self: start;
+  gap: 1.5rem;
+}
+
+.filmDescriptionWrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 2rem;
 }
 
 .filmDescription {
   display: flex;
   flex-flow: column nowrap;
+}
+
+.headingPrimary {
+  color: var(--text-primary);
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  line-height: 32px;
+}
+
+.infoBlock {
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.textBold {
+  font-weight: 700;
+}
+
+.text {
+  color: var(--text-primary);
+  font-size: 20px;
+  font-family: "Roboto";
+  line-height: 24px;
+}
+
+.headingSecondary {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  line-height: 32px;
+  padding-bottom: 1rem;
+}
+
+.reviewWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.reviewUpper {
+  display: flex;
+  padding-bottom: 1rem;
+  justify-content: space-between;
 }

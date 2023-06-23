@@ -8,5 +8,11 @@
   padding: var(--padding-element);
   border-radius: var(--border-rad-default);
   background: var(--white);
+}
+
+.gapSm {
+  gap: 1rem;
+}
+.gapMed {
   gap: 1.5rem;
 }

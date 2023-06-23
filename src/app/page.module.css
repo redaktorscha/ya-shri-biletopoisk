@@ -78,13 +78,14 @@
   display: flex;
   column-gap: 1.5rem;
   background-color: var(--background-muted);
-  padding: var(--padding-page);
+  
   position: relative;
 }
 
 .mainContent {
   display: flex;
   flex-grow: 1;
+  padding: var(--padding-page);
 }
 
 .leftColumn {
