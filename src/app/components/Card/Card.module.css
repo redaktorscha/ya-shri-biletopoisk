@@ -1,0 +1,12 @@
+.cardWrapper {
+  display: flex;
+  align-self: start;
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
+  align-items: flex-start;
+  padding: var(--padding-element);
+  border-radius: var(--border-rad-default);
+  background: var(--white);
+  gap: 1.5rem;
+}

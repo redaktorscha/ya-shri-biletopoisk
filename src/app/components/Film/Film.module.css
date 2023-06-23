@@ -1,0 +1,9 @@
+.filmWrapper {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.filmDescription {
+  display: flex;
+  flex-flow: column nowrap;
+}

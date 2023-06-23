@@ -1,0 +1,24 @@
+.wrapper {
+  padding: var(--padding-element);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  flex: 1 0 0;
+  font-family: "Roboto";
+  border-radius: var(--border-rad-default);
+}
+
+.heading {
+  color: var(--text-primary, #1b1f23);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+.text {
+  color: var(--text-primary, #1b1f23);
+  font-size: 1rem;
+  font-family: "Roboto";
+  line-height: 24px;
+}
