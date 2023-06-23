@@ -144,7 +144,7 @@ export default function Home() {
       <SvgSprite />
       <Header />
       <Main>
-        <QABlock />
+        <Tickets />
       </Main>
       <Footer />
     </div>
