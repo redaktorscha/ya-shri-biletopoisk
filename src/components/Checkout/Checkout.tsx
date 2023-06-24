@@ -1,44 +1,24 @@
 "use client";
+"use client";
 import { useCallback, useState } from "react";
-import { Card } from "../Card/Card";
-import { Modal } from "../Modal/Modal";
-import { ModalContext } from "../../contexts/ModalContext";
-import { Ticket } from "../Tickets/Tickets";
-import styles from "./Basket.module.css";
+import { Card } from "@/components/Card/Card";
+import { Text } from "@/components/Text/Text";
+import { Modal } from "@/components/Modal/Modal";
+import { ModalContext } from "@/contexts/ModalContext";
+import { Ticket } from "@/components/Ticket/Ticket";
+import Image from "next/image";
+import styles from "./Checkout.module.css";
 
 const Total = () => {
   return (
-    <div className={styles.basketTotal}>
-      <span className={styles.basketText}>Итого билетов:</span>
-      <span className={styles.basketText}>7</span>
+    <div className={styles.checkoutTotal}>
+      <span className={styles.checkoutText}>Итого билетов:</span>
+      <span className={styles.checkoutText}>7</span>
     </div>
   );
 };
 
-const Tickets = () => {
-  const filmDetails = {
-    filmName: "Властелин колец: Братство кольца",
-    filmGenre: "Фэнтези",
-  };
-
-  const tickets = [
-    filmDetails,
-    filmDetails,
-    filmDetails,
-    filmDetails,
-    filmDetails,
-  ];
-
-  return (
-    <div className={styles.ticketsWrapper}>
-      {tickets.map(({ filmName, filmGenre }, index) => (
-        <Ticket key={index} filmName={filmName} filmGenre={filmGenre} isBasketItem={false} clickHandler={null} />
-      ))}
-    </div>
-  );
-};
-
-export const Basket = () => {
+export const Checkout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = useCallback(() => setIsModalOpen(true), []);
@@ -49,31 +29,54 @@ export const Basket = () => {
     filmGenre: "Фэнтези",
   };
 
-  const tickets = [
-    filmDetails,
-    filmDetails,
-    filmDetails,
-    filmDetails,
-    filmDetails,
-  ];
+  // const tickets = [
+  //   filmDetails,
+  //   filmDetails,
+  //   filmDetails,
+  //   filmDetails,
+  //   filmDetails,
+  // ];
+
+  const tickets = [];
+
+  const hasTickets = tickets.length > 0;
 
   return (
-    <ModalContext.Provider value={{openModal, closeModal}}>
-      <div className={styles.basketWrapper}>
-        <div className={styles.ticketsWrapper}>
-          {tickets.map(({ filmName, filmGenre }, index) => (
-            <Ticket
-              key={index}
-              filmName={filmName}
-              filmGenre={filmGenre}
-              isBasketItem
-              clickHandler={openModal}
-            />
-          ))}
-        </div>
-        <Card>
-          <Total />
-        </Card>
+    <ModalContext.Provider value={{ openModal, closeModal }}>
+      <div className={styles.checkoutWrapper}>
+        {hasTickets && (
+          <div className={styles.checkoutWrapper}>
+            {tickets.map(({ filmName, filmGenre }, index) => (
+              <Ticket
+                key={index}
+                filmName={filmName}
+                filmGenre={filmGenre}
+                isCheckoutItem
+                clickHandler={openModal}
+              />
+            ))}
+          </div>
+        )}
+        {!hasTickets && (
+          <div className={styles.emptyCheckoutBlock}>
+            <div className={styles.emptyCheckoutInner}>
+              <Card>
+                <Text>В вашей корзине нет билетов...</Text>
+                <Image
+                  src="/empty.png"
+                  width={400}
+                  height={220}
+                  alt="no tickets"
+                />
+              </Card>
+            </div>
+          </div>
+        )}
+        {hasTickets && (
+          <Card>
+            <Total />
+          </Card>
+        )}
         {isModalOpen && <Modal />}
       </div>
     </ModalContext.Provider>

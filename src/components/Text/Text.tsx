@@ -1,3 +1,4 @@
+"use client"
 import styles from "./Text.module.css";
 
 export const Text = ({ children }) => {
