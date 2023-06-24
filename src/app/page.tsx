@@ -1,5 +1,6 @@
 // import Image from 'next/image'
 // "use client";
+import { Suspense } from "react";
 import styles from "./page.module.css";
 import { MainContent } from "@/components/MainContent/MainContent";
 // import { AboutUS } from "@/components/AboutUs/AboutUs";
@@ -11,8 +12,10 @@ import { TicketSelection } from "@/components/TicketSelection/TicketSelection";
 
 export default function HomePage() {
   return (
-    <MainContent hasAsideBlock>
-      <TicketSelection />
-    </MainContent>
+    <Suspense fallback={<div>Loading...</div>}>
+      <MainContent hasAsideBlock>
+        <TicketSelection />
+      </MainContent>
+    </Suspense>
   );
 }
