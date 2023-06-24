@@ -1,0 +1,65 @@
+.headerBlock {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  grid-area: header;
+  display: flex;
+  padding: var(--padding-page);
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--gray-1);
+}
+
+.headerHeading {
+  color: var(--white);
+  font-family: "Roboto";
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.headerHeading:hover {
+  cursor: pointer;
+}
+
+.checkoutBlock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkoutStatus {
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 0.87rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--white);
+  background-color: var(--orange);
+  border-radius: var(--border-rad-default);
+}
+
+.checkoutIcon {
+  color: var(--white);
+  width: 2rem;
+  height: 2rem;
+}
+
+.checkoutLink {
+  display: flex;
+  /* border: none;
+  outline: transparent;
+  background-color: transparent; */
+}
+
+.checkoutLink:hover {
+  cursor: pointer;
+}
+
+.checkoutLink:hover > .checkoutIcon {
+  color: var(--orange-hovered);
+}

@@ -1,0 +1,19 @@
+.asideBlock {
+  position: fixed;
+  top:auto;
+  left: 1.5rem;
+  width: 25rem;
+  /* margin-bottom: 1.5rem; */
+  margin-top: 1.5rem;
+  display: flex;
+  height: 54rem;
+  /* align-items: flex-start; */
+  padding: var(--padding-element);
+  border-radius: var(--border-rad-default);
+  background: var(--white);
+}
+
+.asideBlock > h4 {
+  font-weight: 700;
+  font-size: 1rem;
+}

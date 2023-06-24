@@ -1,6 +1,6 @@
 "use client";
 import { useState, useCallback } from "react";
-import styles from "./Tickets.module.css";
+import styles from "./Ticket.module.css";
 import Image from "next/image";
 import { Card } from "../Card/Card";
 const IconButton = ({ handleClick, iconHref, isDisabled, buttonClass }) => {
@@ -92,31 +92,31 @@ export const Ticket = ({
   );
 };
 
-export const Tickets = () => {
-  const filmDetails = {
-    filmName: "Властелин колец: Братство кольца",
-    filmGenre: "Фэнтези",
-  };
+// const Tickets = () => {
+//   const filmDetails = {
+//     filmName: "Властелин колец: Братство кольца",
+//     filmGenre: "Фэнтези",
+//   };
 
-  const tickets = [
-    filmDetails,
-    filmDetails,
-    filmDetails,
-    filmDetails,
-    filmDetails,
-  ];
+//   const tickets = [
+//     filmDetails,
+//     filmDetails,
+//     filmDetails,
+//     filmDetails,
+//     filmDetails,
+//   ];
 
-  return (
-    <div className={styles.ticketsWrapper}>
-      {tickets.map(({ filmName, filmGenre }, index) => (
-        <Ticket
-          key={index}
-          filmName={filmName}
-          filmGenre={filmGenre}
-          isCheckoutItem={false}
-          clickHandler={null}
-        />
-      ))}
-    </div>
-  );
-};
+//   return (
+//     <div className={styles.ticketsWrapper}>
+//       {tickets.map(({ filmName, filmGenre }, index) => (
+//         <Ticket
+//           key={index}
+//           filmName={filmName}
+//           filmGenre={filmGenre}
+//           isCheckoutItem={false}
+//           clickHandler={null}
+//         />
+//       ))}
+//     </div>
+//   );
+// };

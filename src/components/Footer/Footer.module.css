@@ -1,0 +1,13 @@
+.footerBlock {
+  grid-area: footer;
+  display: flex;
+  padding: var(--padding-page);
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  background-color: var(--gray-1);
+  color: var(--white);
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 1.25rem;
+}

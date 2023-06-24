@@ -1,0 +1,22 @@
+.mainContent {
+  display: flex;
+  flex-grow: 1;
+  padding: var(--padding-page);
+  position: relative;
+}
+
+
+.leftColumn {
+  /* position: sticky;
+  top: 0; */
+  width: 25rem;
+  /* display: flex;
+  flex-flow: column nowrap;
+  padding: var(--padding-element);
+  align-items: flex-start;
+  row-gap: 20px;
+  flex-shrink: 0;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  border-radius: var(--border-rad-default); */
+}
