@@ -1,0 +1,93 @@
+.modalBackdrop {
+  position: absolute;
+  top: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.modalWrapperInner {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+
+.modalUpper {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalHeading {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.modalText {
+  padding-top: 1rem;
+  padding-bottom: 1.5rem;
+}
+
+.modalBottom {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.closeButtonIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--text-primary);
+}
+
+.modalCloseButton {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: none;
+  outline: transparent;
+  background-color: transparent;
+}
+
+.modalCloseButton:hover {
+  cursor: pointer;
+}
+
+.modalButton {
+  outline: transparent;
+  display: flex;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  border-radius: var(--border-rad-default);
+  text-align: center;
+  font-size: 0.87rem;
+  font-family: "Roboto";
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.modalButtonOutline {
+  border: 1px solid var(--orange);
+  background-color: transparent;
+  color: var(--orange);
+}
+
+.modalButtonSolid {
+  border: none;
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+.modalButton:hover {
+  cursor: pointer;
+}

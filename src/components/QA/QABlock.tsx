@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useCallback, useState, useContext } from "react";
+import { useCallback, useState, useContext } from "react";
+import { AccordionContext } from "@/contexts/AccordionContext";
 
 import styles from "./QABlock.module.css";
 import { Card } from "../Card/Card";
 import { Text } from "../Text/Text";
-import { Aclonica } from "next/font/google";
 
-const AccordionContext = React.createContext({});
 const questionsAnswers = [
   {
     id: 1,
