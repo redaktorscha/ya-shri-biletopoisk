@@ -30,13 +30,13 @@
   font-weight: 700;
 }
 
-.basketBlock {
+.checkoutBlock {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.basketStatus {
+.checkoutStatus {
   padding: 0.25rem;
   display: flex;
   align-items: center;

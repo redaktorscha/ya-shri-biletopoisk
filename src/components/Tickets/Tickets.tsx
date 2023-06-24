@@ -3,7 +3,6 @@ import { useState, useCallback } from "react";
 import styles from "./Tickets.module.css";
 import Image from "next/image";
 import { Card } from "../Card/Card";
-
 const IconButton = ({ handleClick, iconHref, isDisabled, buttonClass }) => {
   return (
     <button
@@ -18,7 +17,12 @@ const IconButton = ({ handleClick, iconHref, isDisabled, buttonClass }) => {
   );
 };
 
-const Ticket = ({ filmName, filmGenre }) => {
+export const Ticket = ({
+  filmName,
+  filmGenre,
+  isCheckoutItem,
+  clickHandler,
+}) => {
   const [count, setCount] = useState(0);
 
   const incrementCount = useCallback(
@@ -73,13 +77,15 @@ const Ticket = ({ filmName, filmGenre }) => {
             isDisabled={isDisabledIncrement}
             buttonClass={buttonClassIncrement}
           />
-          <div className={styles.closeButtonWrapper}>
-            <button className={styles.closeButton}>
-              <svg className={styles.closeButtonIcon}>
-                <use href="#close-icon" />
-              </svg>
-            </button>
-          </div>
+          {isCheckoutItem && (
+            <div className={styles.closeButtonWrapper}>
+              <button onClick={clickHandler} className={styles.closeButton}>
+                <svg className={styles.closeButtonIcon}>
+                  <use href="#close-icon" />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </Card>
@@ -102,8 +108,14 @@ export const Tickets = () => {
 
   return (
     <div className={styles.ticketsWrapper}>
-      {tickets.map(({ filmName, filmGenre }) => (
-        <Ticket filmName={filmName} filmGenre={filmGenre} />
+      {tickets.map(({ filmName, filmGenre }, index) => (
+        <Ticket
+          key={index}
+          filmName={filmName}
+          filmGenre={filmGenre}
+          isCheckoutItem={false}
+          clickHandler={null}
+        />
       ))}
     </div>
   );
