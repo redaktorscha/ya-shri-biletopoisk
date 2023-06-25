@@ -29,19 +29,44 @@
 }
 
 .filmName {
+  position: relative;
   color: var(--text-primary);
-  font-size: 1.25rem;
+  font-size: 20px;
   /* font-family: SF Pro Text; */
   /* font-weight: 600; */
   line-height: 20px;
 }
 
-.filmGenre {
+.filmRating {
+  position: absolute;
+  top: -2px;
+  right: -40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: var(--orange);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Roboto";
+  border-radius: var(--border-rad-default);
+}
+
+.text {
+  font-family: "Roboto";
   color: var(--text-primary);
-  font-size: 1rem;
-  /* font-family: SF Pro Text; */
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.textBold {
+  font-weight: 700;
+}
+
+.textItalic {
   font-style: italic;
-  line-height: 20px;
 }
 
 .ticketInteraction {
@@ -85,7 +110,7 @@
 .ticketCountLabel {
   padding: 0 0.5rem;
   color: var(--text-primary);
-  font-size: 1.25rem;
+  font-size: 20px;
   line-height: 20px;
 }
 

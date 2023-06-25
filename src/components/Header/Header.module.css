@@ -13,7 +13,7 @@
 .headerHeading {
   color: var(--white);
   font-family: "Roboto";
-  font-size: 2rem;
+  font-size: 32px;
   font-weight: 700;
 }
 
@@ -34,7 +34,7 @@
   justify-content: center;
   width: 1.75rem;
   height: 1.75rem;
-  font-size: 0.87rem;
+  font-size: 14px;
   font-family: "Roboto";
   font-weight: 700;
   line-height: 20px;

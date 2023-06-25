@@ -1,19 +1,30 @@
 .asideBlock {
   position: fixed;
-  top:auto;
+  top: 85px;
   left: 1.5rem;
   width: 25rem;
   /* margin-bottom: 1.5rem; */
   margin-top: 1.5rem;
   display: flex;
-  height: 54rem;
   /* align-items: flex-start; */
-  padding: var(--padding-element);
+  /* padding: var(--padding-element);
   border-radius: var(--border-rad-default);
-  background: var(--white);
+  background: var(--white); */
 }
 
-.asideBlock > h4 {
+.asideHeading {
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 16px;
+  color: var(--text-primary);
+  font-family: "Roboto";
+  line-height: 20px;
+  padding-bottom: 1.25rem;
+}
+
+.asideInner {
+  /* width: 25rem; */
+  height: 42rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }

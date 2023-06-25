@@ -8,14 +8,7 @@
 
 .heading {
   color: var(--text-primary, #1b1f23);
-  font-size: 2rem;
+  font-size: 32px;
   font-weight: 700;
   line-height: 32px;
 }
-
-/* .text {
-  color: var(--text-primary, #1b1f23);
-  font-size: 1rem;
-  font-family: "Roboto";
-  line-height: 24px;
-} */

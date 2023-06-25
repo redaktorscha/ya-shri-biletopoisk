@@ -8,7 +8,7 @@
 
 .headingPrimary {
   color: var(--text-primary);
-  font-size: 2rem;
+  font-size: 24px;
   font-family: "Roboto";
   font-weight: 700;
   line-height: 32px;
@@ -23,7 +23,7 @@
 
 .accordionItemHeading {
   color: var(--text-primary);
-  font-size: 1.5rem;
+  font-size: 24px;
   font-family: "Roboto";
   font-weight: 700;
   line-height: 32px;
@@ -46,7 +46,6 @@
   outline: transparent;
   width: 20px;
   height:20px;
-
 }
 
 .accordionButton:hover {

@@ -36,7 +36,6 @@ const Accordion = ({ children }) => {
 
   const switchActiveItem = useCallback(
     (itemId) => {
-      console.log(itemId);
       const newId = itemId === activeItemId ? null : itemId;
       setActiveItemId(newId);
     },

@@ -1,8 +1,10 @@
 "use client";
 import { useState, useCallback } from "react";
+import Link from "next/link";
 import styles from "./Ticket.module.css";
 import Image from "next/image";
 import { Card } from "../Card/Card";
+
 const IconButton = ({ handleClick, iconHref, isDisabled, buttonClass }) => {
   return (
     <button
@@ -18,8 +20,12 @@ const IconButton = ({ handleClick, iconHref, isDisabled, buttonClass }) => {
 };
 
 export const Ticket = ({
-  filmName,
-  filmGenre,
+  id,
+  title,
+  posterUrl,
+  genre,
+  rating,
+  cinema,
   isCheckoutItem,
   clickHandler,
 }) => {
@@ -55,13 +61,46 @@ export const Ticket = ({
         <Image
           width={100}
           height={120}
-          src="/poster_small.png"
-          alt={`постер фильма`}
+          src={posterUrl}
+          alt={`постер фильма ${title}`}
         />
 
         <div className={styles.filmDetails}>
-          <h2 className={styles.filmName}>{filmName}</h2>
-          <span className={styles.filmGenre}>{filmGenre}</span>
+          <Link href={`/films/${id}`}>
+            <h2 className={styles.filmName}>
+              {title}
+              {/* <div className={styles.filmRating}>{rating}</div> */}
+            </h2>
+          </Link>
+
+          <div>
+            <span className={`${styles.text} ${styles.textBold}`}>Жанр: </span>
+            <span className={`${styles.text} ${styles.textItalic}`}>
+              {genre}
+            </span>
+          </div>
+          <div>
+            <span className={`${styles.text} ${styles.textBold}`}>
+              Рейтинг:{" "}
+            </span>
+            <span className={`${styles.text} ${styles.textItalic}`}>
+              {rating}
+            </span>
+          </div>
+          <div>
+            <span className={`${styles.text} ${styles.textBold}`}>
+              Кинотеатр:{" "}
+            </span>
+            <span className={`${styles.text} ${styles.textItalic}`}>
+              {cinema}
+            </span>
+          </div>
+          {/* <div>
+            <span className={`${styles.text} ${styles.textBold}`}>Сеанс: </span>
+            <span className={`${styles.text} ${styles.textItalic}`}>
+              {genre}
+            </span>
+          </div> */}
         </div>
         <div className={styles.ticketInteraction}>
           <IconButton

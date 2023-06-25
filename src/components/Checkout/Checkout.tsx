@@ -24,19 +24,6 @@ export const Checkout = () => {
   const openModal = useCallback(() => setIsModalOpen(true), []);
   const closeModal = useCallback(() => setIsModalOpen(false), []);
 
-  const filmDetails = {
-    filmName: "Властелин колец: Братство кольца",
-    filmGenre: "Фэнтези",
-  };
-
-  // const tickets = [
-  //   filmDetails,
-  //   filmDetails,
-  //   filmDetails,
-  //   filmDetails,
-  //   filmDetails,
-  // ];
-
   const tickets = [];
 
   const hasTickets = tickets.length > 0;

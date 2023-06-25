@@ -5,6 +5,10 @@
   gap: 1.5rem;
 }
 
+.imageWrap {
+  border-radius: var(--border-rad-default);
+}
+
 .filmDescriptionWrapper {
   display: flex;
   flex-flow: row nowrap;
@@ -18,7 +22,7 @@
 
 .headingPrimary {
   color: var(--text-primary);
-  font-size: 2rem;
+  font-size: 32px;
   font-family: "Roboto";
   font-weight: 700;
   line-height: 32px;
@@ -55,6 +59,13 @@
 
 .reviewWrapper {
   display: flex;
+  flex-grow: 1;
+  gap: 2rem;
+}
+
+.reviewTextWrapper {
+  display: flex;
+  flex-grow: 1;
   flex-direction: column;
 }
 
@@ -62,4 +73,15 @@
   display: flex;
   padding-bottom: 1rem;
   justify-content: space-between;
+}
+
+.userPic {
+  display: flex;
+  width: 6.25rem;
+  height: 6.25rem;
+  background-color: var(--gray-5);
+  padding: 0.62rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-rad-default);
 }

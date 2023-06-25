@@ -1,103 +1,144 @@
 "use client";
 
+import { useGetMovieQuery } from "@/services/movieApi";
+import { useSelector } from "react-redux";
+import { useGetMovieReviewsQuery } from "@/services/reviewApi";
+import { usePathname } from "next/navigation";
 import styles from "./Film.module.css";
 import { Card } from "../Card/Card";
 import { Text } from "../Text/Text";
 import Image from "next/image";
 
-const filmInfo = {
-  genre: "Фэнтези",
-  year: "2001",
-  rating: "8",
-  director: "Питер Джексон",
+// const InfoBlock = () => {
+//   return (
+//     <div className={styles.infoBlock}>
+//       {Object.keys(filmFields).map((key) => {
+//         return (
+//           <div key={key}>
+//             <span
+//               className={`${styles.text} ${styles.textBold}`}
+//             >{`${key}: `}</span>
+//             <span className={styles.text}>{value}</span>
+//           </div>
+//         );
+//       })}
+//     </div>
+//   );
+// };
+
+const InfoBlock = ({ title, text }) => {
+  return (
+    <div>
+      <span
+        className={`${styles.text} ${styles.textBold}`}
+      >{`${title}: `}</span>
+      <span className={styles.text}>{text}</span>
+    </div>
+  );
 };
 
-const keys = ["Жанр", "Год выпуска", "Рейтинг", "Режиссёр"];
-
-const FilmDescription = () => {
-  const InfoBlock = () => {
-    return (
-      <div className={styles.infoBlock}>
-        {Object.values(filmInfo).map((value, index) => {
-          return (
-            <div key={index}>
-              <span
-                className={`${styles.text} ${styles.textBold}`}
-              >{`${keys[index]}: `}</span>
-              <span className={styles.text}>{value}</span>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
+const FilmDescription = ({
+  movie: {
+    title,
+    posterUrl,
+    releaseYear,
+    description,
+    genre,
+    rating,
+    director,
+  },
+}) => {
   return (
     <Card>
       <div className={styles.filmDescriptionWrapper}>
-        <div>
-          <Image width={400} height={500} alt={""} src={"/poster_medium.png"} />
-        </div>
-        <div className={styles.filmDescription}>
-          <h1 className={styles.headingPrimary}>
-            Властелин колец: Братство кольца
-          </h1>
-          <InfoBlock />
+        <Image
+          className={styles.imageWrap}
+          width={400}
+          height={500}
+          alt={`постер фильма ${title}`}
+          src={posterUrl}
+        />
 
+        <div className={styles.filmDescription}>
+          <h1 className={styles.headingPrimary}>{title}</h1>
+          <div className={styles.infoBlock}>
+            <InfoBlock title={"Жанр"} text={genre} />
+            <InfoBlock title={"Год выпуска"} text={releaseYear} />
+            <InfoBlock title={"Рейтинг"} text={rating} />
+            <InfoBlock title={"Режиссер"} text={director} />
+          </div>
           <h4 className={styles.headingSecondary}>Описание</h4>
-          <Text>
-            Сказания о Средиземье — это хроника Великой войны за Кольцо,
-            длившейся не одну тысячу лет. Тот, кто владел Кольцом, получал
-            неограниченную власть, но был обязан служить злу. Тихая деревня, где
-            живут хоббиты. Придя на 111-й день рождения к своему старому другу
-            Бильбо Бэггинсу, волшебник Гэндальф начинает вести разговор о
-            кольце, которое Бильбо нашел много лет назад. Это кольцо
-            принадлежало когда-то темному властителю Средиземья Саурону, и оно
-            дает большую власть своему обладателю. Теперь Саурон хочет вернуть
-            себе власть над Средиземьем. Бильбо отдает Кольцо племяннику Фродо,
-            чтобы тот отнёс его к Роковой Горе и уничтожил.
-          </Text>
+          <Text>{description}</Text>
         </div>
       </div>
     </Card>
   );
 };
 
-const FilmReview = () => {
+const FilmReview = ({ name, text, rating }) => {
   return (
     <Card>
-      <Image width={100} height={100} src={""} alt="user pic" />
       <div className={styles.reviewWrapper}>
-        <div className={styles.reviewUpper}>
-          <div className={`${styles.text} ${styles.textBold}`}>UserName</div>
-          <div className={styles.text}>
-            <span>Оценка: </span>
-            <span>8</span>
-          </div>
+        <div className={styles.userPic}>
+          <Image width={32} height={32} src={"/photo.svg"} alt="avatar" />
         </div>
-        <Text>
-          По счастью мне довелось посмотреть фильм раньше, чем прочесть книгу.
-          Это было около четырех лет назад, но тот момент я вспоминаю и по сей
-          день. До него я не был фанатом Джона Толкина, как впрочем, и всего
-          фентези в целом, однако стоило мне посмотреть первые десять минут
-          фильма и оставшиеся пролетели на одном дыхании. Я словно погрузился в
-          необычайный мир, где добро борется со злом, где зеленые рощи
-          перемежаются с поросшими мхом статуями и древними развалинами, в мир,
-          где пробираясь лесною тропой можно встретить остроухих неувядающих
-          эльфов или мерзких орков – кому как повезет...
-        </Text>
+        <div className={styles.reviewTextWrapper}>
+          <div className={styles.reviewUpper}>
+            <div className={`${styles.text} ${styles.textBold}`}>{name}</div>
+            <div className={styles.text}>
+              <span className={styles.text}>Оценка: </span>
+              <span className={`${styles.text} ${styles.textBold}`}>
+                {rating}
+              </span>
+            </div>
+          </div>
+          <Text>{text}</Text>
+        </div>
       </div>
     </Card>
   );
 };
 
 export const Film = () => {
+  const movieId = usePathname().slice("/films/".length);
+
+  const {
+    data: movieData,
+    isLoading: isMovieLoading,
+    error: isMovieError,
+  } = useGetMovieQuery(movieId);
+
+  const {
+    data: reviewData,
+    isLoading: isReviewLoading,
+    error: isReviewError,
+  } = useGetMovieReviewsQuery(movieId);
+
+  // const selectMoviesSlice = (state) => state.movies;
+  // const selectReviewsSlice = (state) => state.reviews;
+
+  // const getMovieReviews = (state, id) => selectReviewsSlice(state)[id];
+  // const getMovieData = (state, id) => selectMoviesSlice(state)[id];
+
+  // const movieReviews = useSelector((state) => getMovieReviews(state, movieId));
+  // const movieData = useSelector((state) => getMovieData(state, movieId));
+
+  if (isMovieError || isReviewError) {
+    return <div>Что-то пошло не так...</div>;
+  }
+
+  if (isMovieLoading || isReviewLoading) {
+    return <div>Загружаем...</div>;
+  }
+
   return (
     <div className={styles.filmWrapper}>
-      <FilmDescription />
-      <FilmReview />
-      <FilmReview />
-      <FilmReview />
+      <FilmDescription movie={movieData} />
+      <>
+        {reviewData.map(({ id, name, text, rating }) => (
+          <FilmReview key={id} name={name} text={text} rating={rating} />
+        ))}
+      </>
     </div>
   );
 };
