@@ -1,13 +1,15 @@
 .checkoutWrapper {
   display: flex;
+  align-self: flex-start;
   flex-grow: 1;
-  width: 100%;
+  /* width: 100%; */
   flex-direction: column;
   gap: 1rem;
 }
 
 .checkoutTotal {
   display: flex;
+  align-self: flex-start;
   flex-grow: 1;
   justify-content: space-between;
 }
@@ -32,10 +34,16 @@
   flex-grow: 1;
   justify-content: center;
   align-items: center;
- 
 }
 
 .emptyCheckoutInner {
   display: flex;
-  max-width:500px;
+  max-width: 500px;
+}
+
+.totalWrapper {
+  position: absolute;
+  bottom: 1.5rem;
+  display: flex;
+  width: calc(100% - 4rem);
 }
