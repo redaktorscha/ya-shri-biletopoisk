@@ -1,84 +1,145 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { useGetMoviesQuery, useGetMovieQuery, useGetCinemasQuery } from "@/services/dataApi";
+import {
+  useGetMoviesQuery,
+  useGetMovieQuery,
+  useGetCinemasQuery,
+} from "@/services/dataApi";
+import { setTickets } from "@/store/slices/ticketsSlice";
 import { Ticket } from "@/components/Ticket/Ticket";
 import { Text } from "@/components/Text/Text";
 import styles from "./TicketSelection.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 export const TicketSelection = () => {
-  const [movies, setMovies] = useState([]);
-  const [tickets, setTickets] = useState([]);
-  const [cinemas, setCinemas] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasError, setHasError] = useState(false);
+  // const [movies, setMovies] = useState([]);
+  // const [tickets, setTickets] = useState([]);
+  // const [cinemas, setCinemas] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [hasError, setHasError] = useState(false);
+  const dispatch = useDispatch();
+  let tickets = [];
 
-  const getTickets = useCallback(() => {
-    return movies.reduce((acc, movie) => {
-      const currentCinemas = cinemas.filter(({ movieIds }) =>
-        movieIds.includes(movie.id)
-      );
-      const curTickets = currentCinemas.map(({ name }) => ({
-        ...movie,
-        cinema: name,
-      }));
-      acc.push(...curTickets);
-      return acc;
-    }, []);
-  }, [movies, cinemas]);
+  const getTickets = (movies, cinemas) => {
+    const tickets = [];
+    movies.forEach(
+      ({
+        title,
+        posterUrl,
+        releaseYear,
+        description,
+        genre,
+        id,
+        rating,
+        director,
+        reviewIds,
+      }) => {
+        const ticket = {
+          title,
+          posterUrl,
+          releaseYear,
+          description,
+          genre,
+          rating,
+          director,
+          movieId: id,
+          id,
+        };
+        const curCinemas = cinemas.filter(({ movieIds }) =>
+          movieIds.includes(id)
+        );
+        curCinemas.forEach((cinema) =>
+          tickets.push({ ...ticket, cinema: cinema.name })
+        );
+      }
+    );
+    return tickets;
+  };
 
   const {
     data: movieData,
     isLoading: isLoadingMovies,
-    error: hasMoviesError,
+    isError: hasMoviesError,
   } = useGetMoviesQuery();
 
   const {
     data: cinemaData,
     isLoading: isLoadingCinemas,
-    error: hasCinemasError,
+    isError: hasCinemasError,
   } = useGetCinemasQuery();
 
-  useEffect(() => {
-    if (isLoadingMovies || isLoadingCinemas) {
-      setIsLoading(true);
-    }
-  }, [isLoadingCinemas, isLoadingMovies]);
+  const isLoading = isLoadingMovies || isLoadingCinemas;
+  const isError = hasMoviesError || hasCinemasError;
 
-  useEffect(() => {
-    if (hasMoviesError || hasCinemasError) {
-      setHasError(true);
-    }
-  }, [hasCinemasError, hasMoviesError]);
+  // const filterState = useSelector((state) => state.filters);
+  // const activeFilters = Object.keys(filterState).filter(
+  //   (key) => filterState[key] !== null
+  // );
+  // console.log("activeFilters", activeFilters);
 
-  useEffect(() => {
-    if (movieData && cinemaData) {
-      setMovies(movieData);
-      setCinemas(cinemaData);
-      setTickets(() => getTickets());
+  // useEffect(() => {
+  //   if (tickets.length > 0) {
+  //     dispatch(setTickets({ tickets }));
+  //   }
+  // });
+  if (cinemaData && movieData) {
+    tickets = getTickets(movieData, cinemaData);
+    dispatch(setTickets({ tickets }));
+  }
 
-      setIsLoading(false);
-    }
-  }, [movieData, cinemaData, getTickets]);
+  if (isError) {
+    return <Text>Что-то пошло не так...</Text>;
+  }
+
+  if (isLoading) {
+    return <Text>Загружаем...</Text>;
+  }
+
+  // Object.keys(filters).forEach((filterName) => {
+  //   tickets.filter((ticket) => ticket[filter] === filterState[filter]);
+  // })
+
+  // useEffect(() => {
+  //   if (isLoadingMovies || isLoadingCinemas) {
+  //     setIsLoading(true);
+  //   }
+  // }, [isLoadingCinemas, isLoadingMovies]);
+
+  // useEffect(() => {
+  //   if (hasMoviesError || hasCinemasError) {
+  //     setHasError(true);
+  //   }
+  // }, [hasCinemasError, hasMoviesError]);
+
+  // useEffect(() => {
+  //   if (movieData && cinemaData) {
+  //     setMovies(movieData);
+  //     setCinemas(cinemaData);
+  //     setTickets(() => getTickets());
+
+  //     setIsLoading(false);
+  //   }
+  // }, [movieData, cinemaData, getTickets]);
 
   return (
     <div className={styles.ticketsWrapper}>
-      {isLoading && <Text>Загружаем...</Text>}
-      {hasError && <Text>Что-то пошло не так...</Text>}
       {tickets.length > 0 &&
-        tickets.map(({ title, posterUrl, genre, id, rating, cinema }) => (
-          <Ticket
-            id={id}
-            key={id}
-            title={title}
-            posterUrl={posterUrl}
-            genre={genre}
-            rating={rating}
-            cinema={cinema}
-            isCheckoutItem={false}
-            clickHandler={null}
-          />
-        ))}
+        tickets.map(
+          ({ title, posterUrl, genre, id, rating, cinema, movieId }) => (
+            <Ticket
+              movieId={movieId}
+              id={id}
+              key={id}
+              title={title}
+              posterUrl={posterUrl}
+              genre={genre}
+              rating={rating}
+              cinema={cinema}
+              isCheckoutItem={false}
+              clickHandler={null}
+            />
+          )
+        )}
     </div>
   );
 };

@@ -12,6 +12,12 @@
   gap: 1.5rem;
 }
 
+.imageWrap {
+  /* width: 6.25rem;
+  height: 8rem; */
+  border-radius: var(--border-rad-default);
+}
+
 .ticketsWrapper {
   display: flex;
   flex-grow: 1;
@@ -91,12 +97,13 @@
   color: var(--white);
 }
 
-.ticketButton:hover {
-  cursor: pointer;
-}
-
 .ticketButtonActive {
   background-color: var(--orange);
+}
+
+.ticketButtonActive:hover {
+  cursor: pointer;
+  background-color: var(--orange-hovered);
 }
 
 .ticketButtonDisabled {

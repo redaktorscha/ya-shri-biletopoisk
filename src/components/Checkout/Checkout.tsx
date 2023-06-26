@@ -1,5 +1,4 @@
 "use client";
-"use client";
 import { useCallback, useState } from "react";
 import { Card } from "@/components/Card/Card";
 import { Text } from "@/components/Text/Text";
@@ -8,12 +7,15 @@ import { ModalContext } from "@/contexts/ModalContext";
 import { Ticket } from "@/components/Ticket/Ticket";
 import Image from "next/image";
 import styles from "./Checkout.module.css";
+import { useSelector } from "react-redux";
+import { cartTotalSelector } from "@/store/cartSelector";
 
 const Total = () => {
+  const totalCount = useSelector(cartTotalSelector);
   return (
     <div className={styles.checkoutTotal}>
       <span className={styles.checkoutText}>Итого билетов:</span>
-      <span className={styles.checkoutText}>7</span>
+      <span className={styles.checkoutText}>{totalCount}</span>
     </div>
   );
 };
@@ -24,25 +26,35 @@ export const Checkout = () => {
   const openModal = useCallback(() => setIsModalOpen(true), []);
   const closeModal = useCallback(() => setIsModalOpen(false), []);
 
-  const tickets = [];
+  const tickets = useSelector((state) => state.tickets);
+  const cart = useSelector((state) => state.cart);
 
-  const hasTickets = tickets.length > 0;
+  const cartIndexes = cart.map(({ id }) => id);
+  const ticketsInCart = tickets.filter(({ id }) => cartIndexes.includes(id));
+  const hasTickets = ticketsInCart.length > 0;
 
   return (
     <ModalContext.Provider value={{ openModal, closeModal }}>
       <div className={styles.checkoutWrapper}>
         {hasTickets && (
-          <div className={styles.checkoutWrapper}>
-            {tickets.map(({ filmName, filmGenre }, index) => (
-              <Ticket
-                key={index}
-                filmName={filmName}
-                filmGenre={filmGenre}
-                isCheckoutItem
-                clickHandler={openModal}
-              />
-            ))}
-          </div>
+          <>
+            {ticketsInCart.map(
+              ({ id, movieId, title, posterUrl, genre, rating, cinema }) => (
+                <Ticket
+                  key={title}
+                  id={id}
+                  movieId={movieId}
+                  title={title}
+                  posterUrl={posterUrl}
+                  genre={genre}
+                  rating={rating}
+                  cinema={cinema}
+                  isCheckoutItem
+                  clickHandler={openModal}
+                />
+              )
+            )}
+          </>
         )}
         {!hasTickets && (
           <div className={styles.emptyCheckoutBlock}>
@@ -60,9 +72,11 @@ export const Checkout = () => {
           </div>
         )}
         {hasTickets && (
-          <Card>
-            <Total />
-          </Card>
+          <div className={styles.totalWrapper}>
+            <Card>
+              <Total />
+            </Card>
+          </div>
         )}
         {isModalOpen && <Modal />}
       </div>

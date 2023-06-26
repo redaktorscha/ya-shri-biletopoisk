@@ -7,7 +7,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     incrementItemCount: (state, { payload }) => {
-      const { id } = payload.id;
+      const { id } = payload;
       const existingItem = state.find((item) => item.id === id);
 
       if (existingItem) {
@@ -26,7 +26,7 @@ const cartSlice = createSlice({
     },
 
     decrementItemCount: (state, { payload }) => {
-      const { id } = payload.id;
+      const { id } = payload;
       const existingItem = state.find((item) => item.id === id);
 
       if (existingItem.count === 1) {
@@ -42,7 +42,7 @@ const cartSlice = createSlice({
     },
 
     deleteItem: (state, {payload}) => {
-      const { id } = payload.id;
+      const { id } = payload;
       return state.filter((item) => item.id !== id);
     }
   },

@@ -4,6 +4,8 @@ import Link from "next/link";
 import styles from "./Ticket.module.css";
 import Image from "next/image";
 import { Card } from "../Card/Card";
+import { useSelector, useDispatch } from "react-redux";
+import { incrementItemCount, decrementItemCount, deleteItem } from '@/store/slices/cartSlice';
 
 const IconButton = ({ handleClick, iconHref, isDisabled, buttonClass }) => {
   return (
@@ -21,6 +23,7 @@ const IconButton = ({ handleClick, iconHref, isDisabled, buttonClass }) => {
 
 export const Ticket = ({
   id,
+  movieId,
   title,
   posterUrl,
   genre,
@@ -29,17 +32,24 @@ export const Ticket = ({
   isCheckoutItem,
   clickHandler,
 }) => {
-  const [count, setCount] = useState(0);
 
-  const incrementCount = useCallback(
-    () => setCount((curCount) => curCount + 1),
-    []
-  );
-  const decrementCount = useCallback(
-    () => setCount((curCount) => curCount - 1),
-    []
-  );
+  const dispatch = useDispatch();
+  // const [count, setCount] = useState(0);
 
+  // const incrementCount = useCallback(
+  //   () => setCount((curCount) => curCount + 1),
+  //   []
+  // );
+  // const decrementCount = useCallback(
+  //   () => setCount((curCount) => curCount - 1),
+  //   []
+  // );
+  const cartState = useSelector((state) => state.cart);
+  console.log('cartState', cartState);
+  const currentTicket = cartState.find((item) => item.id === id);
+  console.log(currentTicket, currentTicket);
+  const count = currentTicket === undefined ? 0 : currentTicket.count;
+  console.log('count', count);
   const MAX_TICKETS = 30;
   const MIN_TICKETS = 0;
 
@@ -50,23 +60,25 @@ export const Ticket = ({
     count === MAX_TICKETS
       ? styles.ticketButtonDisabled
       : styles.ticketButtonActive;
+
   const buttonClassDecrement =
-    count > MAX_TICKETS
+    count === MIN_TICKETS
       ? styles.ticketButtonDisabled
-      : styles.ticketButtonDisabled;
+      : styles.ticketButtonActive;
 
   return (
     <Card>
       <div className={styles.ticketWrap}>
         <Image
           width={100}
-          height={120}
+          height={140}
           src={posterUrl}
           alt={`постер фильма ${title}`}
+          className={styles.imageWrap}
         />
 
         <div className={styles.filmDetails}>
-          <Link href={`/films/${id}`}>
+          <Link href={`/films/${movieId}`}>
             <h2 className={styles.filmName}>
               {title}
               {/* <div className={styles.filmRating}>{rating}</div> */}
@@ -104,14 +116,18 @@ export const Ticket = ({
         </div>
         <div className={styles.ticketInteraction}>
           <IconButton
-            handleClick={decrementCount}
+            handleClick={() => {
+              dispatch(decrementItemCount({ id }))
+            }}
             iconHref={"#minus-icon"}
             isDisabled={isDisabledDecrement}
             buttonClass={buttonClassDecrement}
           />
           <span className={styles.ticketCountLabel}>{count}</span>
           <IconButton
-            handleClick={incrementCount}
+            handleClick={() => {
+              dispatch(incrementItemCount({id}))
+            }}
             iconHref={"#plus-icon"}
             isDisabled={isDisabledIncrement}
             buttonClass={buttonClassIncrement}
