@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { useGetMoviesQuery, useGetMovieQuery } from "@/services/movieApi";
-import { useGetCinemasQuery } from "@/services/cinemaApi";
+import { useGetMoviesQuery, useGetMovieQuery, useGetCinemasQuery } from "@/services/dataApi";
 import { Ticket } from "@/components/Ticket/Ticket";
 import { Text } from "@/components/Text/Text";
 import styles from "./TicketSelection.module.css";
