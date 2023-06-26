@@ -9,6 +9,8 @@ import {
 } from "react";
 import { Portal } from "@/components/Portal/Portal";
 import { DropDownContext } from "@/contexts/DropDownContext";
+import { setActiveFilter } from "@/store/slices/filterSlice";
+import { useDispatch } from "react-redux";
 
 import styles from "./Form.module.css";
 
@@ -17,6 +19,7 @@ const InputText = ({ filterName, title, placeholder, id }) => {
   // const [isActive, setIsActive] = useState(false);
   // const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
 
   // const formElementClass = (isActive || isFocused)
   //   ? `${styles.formElement} ${styles.formElementActive}`
@@ -28,13 +31,14 @@ const InputText = ({ filterName, title, placeholder, id }) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (value !== "") {
-  //     setIsActive(true);
-  //   } else {
-  //     setIsActive(false);
-  //   }
-  // }, [value]);
+  useEffect(() => {
+    if (value !== "") {
+      dispatch(setActiveFilter({ filterName, filterValue: value }));
+      console.log('value', value);
+    } else {
+      dispatch(setActiveFilter({ filterName, filterValue: null }));
+    }
+  }, [dispatch, filterName, value]);
 
   return (
     <div className={styles.formControl}>
@@ -65,25 +69,53 @@ const OptionListElement = ({ title, onSelect }) => {
 const DropDownSelect = ({ filterName, title, placeholder, id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState(placeholder);
+  const [defaultSelect, setDefaultSelect] = useState("");
+
+  useEffect(() => {
+    const defaultVal =
+      filterName === "genre" ? "Выберите жанр" : "Выберите кинотеатр";
+
+    setDefaultSelect(defaultVal);
+  }, [filterName]);
+
+  const dispatch = useDispatch();
 
   const toggleDropDown = useCallback(() => {
     setIsOpen(!isOpen);
   }, [isOpen]);
 
-  const options = useMemo(
+  const optionsGenre = useMemo(
     () => ["Не выбрано", "action", "fantasy", "comedy", "horror"],
     []
   );
 
-  const closeDropDown = useCallback(() => {
-    setIsOpen(false);
-    setValue(options[0]);
-  }, [options]);
+  const optionsCinemaList = useMemo(
+    () => ["Не выбрано", "Синема сад", "4 с половиной звезды", "Дружба"],
+    []
+  );
 
-  const selectOption = useCallback((selected) => {
-    setValue(selected);
-    setIsOpen(false);
-  }, []);
+  const currentList = filterName === "genre" ? optionsGenre : optionsCinemaList;
+
+  const selectOption = useCallback(
+    (selected, defaultValue) => {
+      if (selected === "Не выбрано") {
+        setValue(defaultValue);
+      } else {
+        setValue(selected);
+      }
+      setIsOpen(false);
+    },
+    []
+  );
+
+  useEffect(() => {
+    if (value !== defaultSelect) {
+      console.log(value);
+      dispatch(setActiveFilter({ filterName, filterValue: value }));
+    } else {
+      dispatch(setActiveFilter({ filterName, filterValue: null }));
+    }
+  }, [defaultSelect, dispatch, filterName, value]);
 
   const { classes } = useContext(DropDownContext);
   const cssClass = classes[id];
@@ -116,11 +148,11 @@ const DropDownSelect = ({ filterName, title, placeholder, id }) => {
         <Portal selector={"aside"}>
           {isOpen && (
             <div className={`${styles.optionsList} ${cssClass}`}>
-              {options.map((title) => (
+              {currentList.map((option) => (
                 <OptionListElement
-                  key={title}
-                  title={title}
-                  onSelect={selectOption}
+                  key={option}
+                  title={option}
+                  onSelect={() => selectOption(option, defaultSelect)}
                 />
               ))}
             </div>
@@ -158,6 +190,16 @@ const FormControl = ({ type, filterName, title, placeholder, id }) => {
 };
 
 export const Form = () => {
+  // const [activeFilter, setActiveFilter] = useState(null);
+
+  // const switchActiveFilter = useCallback(
+  //   (curFilter) => {
+  //     const newFilter = curFilter === activeFilter ? null : itemId;
+  //     setActiveFilter(newId);
+  //   },
+  //   [activeFilter]
+  // );
+
   const classes = {
     dd1: "pos1",
     dd2: "pos2",
@@ -168,7 +210,7 @@ export const Form = () => {
       <form onSubmit={(e) => e.preventDefault()} className={styles.formElem}>
         <FormControl
           type="text"
-          filterName="name"
+          filterName="title"
           title="Название"
           placeholder="Введите название"
           id="inp1"

@@ -10,18 +10,13 @@ const filterSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    setFilterTitle: (state, { payload }) => {
-      state.title = payload.title;
-    },
-    setFilterGenre: (state, { payload }) => {
-      state.genre = payload.genre;
-    },
-    setFilterCinema: (state, { payload }) => {
-      state.cinema = payload.cinema;
+    setActiveFilter: (state, { payload }) => {
+      console.log('payload', payload);
+      const { filterName, filterValue } = payload;
+      state[filterName] = filterValue;
     },
   },
 });
 
-export const { setFilterTitle, setFilterGenre, setFilterCinema } =
-  filterSlice.actions;
+export const { setActiveFilter } = filterSlice.actions;
 export default filterSlice.reducer;

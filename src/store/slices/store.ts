@@ -3,6 +3,7 @@ import { dataApi } from "@/services/dataApi";
 import cartReducer from "./cartSlice";
 import ticketReducer from "./ticketsSlice";
 import filterReducer from "./filterSlice";
+import cinemaReducer from "./cinemaSlice";
 
 export default configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export default configureStore({
     cart: cartReducer,
     tickets: ticketReducer,
     filters: filterReducer,
+    cinema: cinemaReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(dataApi.middleware),
