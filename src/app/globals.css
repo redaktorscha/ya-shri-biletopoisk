@@ -15,6 +15,7 @@
   --icon-tertiary: #999fa6;
   --border-default: #e1e3e6;
   --semi-transparent: rgba(0,0,0,.1);
+  --backdrop: rgba(0, 0, 0, 0.5);
 
   --padding-page: 1.5rem 2rem;
   --padding-element: 1.5rem;
@@ -62,4 +63,14 @@ a {
 
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 1fr;
+}
+
+.pos1 {
+  top: 230px;
+  left: 24px;
+}
+
+.pos2 {
+  top: 334px;
+  left: 24px;
 }

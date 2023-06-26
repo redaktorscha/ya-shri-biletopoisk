@@ -1,23 +1,23 @@
-"use client";
-
+"use client"
 import { createPortal } from "react-dom";
 import { useEffect, useRef, useState } from "react";
 
-export const Portal = ({ children }) => {
-  const ref = useRef<HTMLElement|null>(null);
+export const Portal = ({ selector, children }) => {
+  const refParent = useRef(null);
+  const refChild = useRef(null);
   const [mounted, setMounted] = useState(false);
 
-  const wrapper = document.createElement("div");
-  const body = document.querySelector("body");
-
   useEffect(() => {
-    if (body) {
-      ref.current = body;
-      setMounted(true);
-      ref.current.append(wrapper);
-      return () => wrapper?.remove();
-    }
-  }, [wrapper, body]);
+    refChild.current = document.createElement("div");
+    const parent = document.querySelector(selector);
 
-  return mounted ? createPortal(children, wrapper) : null;
+    if (parent) {
+      refParent.current = parent;
+      setMounted(true);
+      refParent.current.append(refChild.current);
+      return () =>  refChild.current?.remove();
+    }
+  }, []);
+
+  return mounted ? createPortal(children, refChild.current) : null;
 };

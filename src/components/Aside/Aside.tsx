@@ -1,3 +1,4 @@
+"use client"
 import styles from "./Aside.module.css";
 import { Card } from "@/components/Card/Card";
 import {Form} from "@/components/Form/Form";

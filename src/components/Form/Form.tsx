@@ -1,9 +1,18 @@
 "use client";
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+  useContext,
+} from "react";
+import { Portal } from "@/components/Portal/Portal";
+import { DropDownContext } from "@/contexts/DropDownContext";
 
 import styles from "./Form.module.css";
 
-const InputText = ({ filterName, title, placeholder }) => {
+const InputText = ({ filterName, title, placeholder, id }) => {
   const [value, setValue] = useState("");
   // const [isActive, setIsActive] = useState(false);
   // const [isFocused, setIsFocused] = useState(false);
@@ -29,14 +38,14 @@ const InputText = ({ filterName, title, placeholder }) => {
 
   return (
     <div className={styles.formControl}>
-      <label className={styles.formLabel} htmlFor={title}>
+      <label className={styles.formLabel} htmlFor={id}>
         {title}
       </label>
       <input
         className={styles.formElement}
         onChange={(e) => setValue(e.target.value)}
         type="text"
-        id={title}
+        id={id}
         placeholder={placeholder}
         value={value}
         ref={inputRef}
@@ -53,13 +62,13 @@ const OptionListElement = ({ title, onSelect }) => {
   );
 };
 
-const DropDownSelect = ({ filterName, title, placeholder }) => {
+const DropDownSelect = ({ filterName, title, placeholder, id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState(placeholder);
 
   const toggleDropDown = useCallback(() => {
     setIsOpen(!isOpen);
-  }, [isOpen])
+  }, [isOpen]);
 
   const options = useMemo(
     () => ["Не выбрано", "action", "fantasy", "comedy", "horror"],
@@ -67,7 +76,6 @@ const DropDownSelect = ({ filterName, title, placeholder }) => {
   );
 
   const closeDropDown = useCallback(() => {
-    console.log('isOpen', isOpen);
     setIsOpen(false);
     setValue(options[0]);
   }, [options]);
@@ -77,6 +85,9 @@ const DropDownSelect = ({ filterName, title, placeholder }) => {
     setIsOpen(false);
   }, []);
 
+  const { classes } = useContext(DropDownContext);
+  const cssClass = classes[id];
+
   const formElementClass = isOpen
     ? `${styles.formElement} ${styles.formElementActive}`
     : `${styles.formElement}`;
@@ -84,14 +95,11 @@ const DropDownSelect = ({ filterName, title, placeholder }) => {
   return (
     <div className={styles.formControl}>
       <div className={styles.formLabel}>{title}</div>
-      <div className={styles.dropDownInner}>
+      <div id={id} className={styles.dropDownInner}>
         <div className={formElementClass}>
           <div className={styles.placeholderWrapper}>
             <div className={styles.placeholder}>{value}</div>
-            <button
-              className={styles.dropDownButton}
-              onClick={toggleDropDown}
-            >
+            <button className={styles.dropDownButton} onClick={toggleDropDown}>
               {isOpen && (
                 <svg className={styles.dropDownButtonIcon}>
                   <use href={"#icon-up-sm"} />
@@ -105,27 +113,32 @@ const DropDownSelect = ({ filterName, title, placeholder }) => {
             </button>
           </div>
         </div>
-        {isOpen && <div className={styles.optionsList}>
-          {options.map((title) => (
-            <OptionListElement
-              key={title}
-              title={title}
-              onSelect={selectOption}
-            />
-          ))}
-        </div>}
+        <Portal selector={"aside"}>
+          {isOpen && (
+            <div className={`${styles.optionsList} ${cssClass}`}>
+              {options.map((title) => (
+                <OptionListElement
+                  key={title}
+                  title={title}
+                  onSelect={selectOption}
+                />
+              ))}
+            </div>
+          )}
+        </Portal>
       </div>
     </div>
   );
 };
 
-const FormControl = ({ type, filterName, title, placeholder }) => {
+const FormControl = ({ type, filterName, title, placeholder, id }) => {
   if (type === "text") {
     return (
       <InputText
         filterName={filterName}
         title={title}
         placeholder={placeholder}
+        id={id}
       />
     );
   }
@@ -136,6 +149,7 @@ const FormControl = ({ type, filterName, title, placeholder }) => {
         filterName={filterName}
         title={title}
         placeholder={placeholder}
+        id={id}
       />
     );
   }
@@ -144,26 +158,38 @@ const FormControl = ({ type, filterName, title, placeholder }) => {
 };
 
 export const Form = () => {
+  const classes = {
+    dd1: "pos1",
+    dd2: "pos2",
+  };
+
   return (
-    <form onSubmit={(e) => e.preventDefault()} className={styles.formElem}>
-      <FormControl
-        type="text"
-        filterName="name"
-        title="Название"
-        placeholder="Введите название"
-      />
-      <FormControl
-        type="select"
-        filterName="genre"
-        title="Жанр"
-        placeholder="Выберите жанр"
-      />
-      <FormControl
-        type="select"
-        filterName="cinema"
-        title="Кинотеатр"
-        placeholder="Выберите кинотеатр"
-      />
-    </form>
+    <DropDownContext.Provider value={{ classes }}>
+      <form onSubmit={(e) => e.preventDefault()} className={styles.formElem}>
+        <FormControl
+          type="text"
+          filterName="name"
+          title="Название"
+          placeholder="Введите название"
+          id="inp1"
+        />
+
+        <FormControl
+          type="select"
+          filterName="genre"
+          title="Жанр"
+          placeholder="Выберите жанр"
+          id="dd1"
+        />
+
+        <FormControl
+          type="select"
+          filterName="cinema"
+          title="Кинотеатр"
+          placeholder="Выберите кинотеатр"
+          id="dd2"
+        />
+      </form>
+    </DropDownContext.Provider>
   );
 };
