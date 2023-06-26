@@ -5,8 +5,9 @@ import { useSelector } from "react-redux";
 import { useGetMovieReviewsQuery } from "@/services/dataApi";
 import { usePathname } from "next/navigation";
 import styles from "./Film.module.css";
-import { Card } from "../Card/Card";
-import { Text } from "../Text/Text";
+import { Card } from "@/components/Card/Card";
+import { Text } from "@/components/Text/Text";
+import { TicketCounter } from "@/components/TicketCounter/TicketCounter";
 import Image from "next/image";
 
 // const InfoBlock = () => {
@@ -39,6 +40,7 @@ const InfoBlock = ({ title, text }) => {
 
 const FilmDescription = ({
   movie: {
+    id,
     title,
     posterUrl,
     releaseYear,
@@ -61,6 +63,7 @@ const FilmDescription = ({
 
         <div className={styles.filmDescription}>
           <h1 className={styles.headingPrimary}>{title}</h1>
+          <TicketCounter isCheckoutItem={false} openModal={null} id={id}/>
           <div className={styles.infoBlock}>
             <InfoBlock title={"Жанр"} text={genre} />
             <InfoBlock title={"Год выпуска"} text={releaseYear} />

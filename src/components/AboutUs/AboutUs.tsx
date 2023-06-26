@@ -1,6 +1,6 @@
 import styles from "./AboutUs.module.css";
-import { Text } from "../Text/Text";
-import { Card } from "../Card/Card";
+import { Text } from "@/components/Text/Text";
+import { Card } from "@/components/Card/Card";
 
 export const AboutUS = () => {
   return (

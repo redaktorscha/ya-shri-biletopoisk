@@ -1,5 +1,7 @@
 .footerBlock {
   grid-area: footer;
+  position: relative;
+  z-index: 999;
   display: flex;
   padding: var(--padding-page);
   justify-content: space-between;

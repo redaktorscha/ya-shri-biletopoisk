@@ -12,6 +12,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  box-sizing: border-box;
 }
 .modalWrapperInner {
   display: flex;
@@ -49,12 +50,13 @@
   width: 1.25rem;
   height: 1.25rem;
   color: var(--text-primary);
+  pointer-events: none;
 }
 
 .modalCloseButton {
   width: 1.25rem;
   height: 1.25rem;
-  border: none;
+  border: 1px solid black;
   outline: transparent;
   background-color: transparent;
 }

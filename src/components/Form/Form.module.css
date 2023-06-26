@@ -25,6 +25,11 @@
   position: relative;
 }
 
+.formElement:focus, .formElement:hover  {
+  outline: transparent;
+  border: 1px solid var(--orange);
+}
+
 .formElementActive {
   border: 1px solid var(--orange);
 }

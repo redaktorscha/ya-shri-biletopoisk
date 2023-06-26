@@ -4,7 +4,7 @@
   left: 1.5rem;
   width: 25rem;
   /* margin-bottom: 1.5rem; */
-  margin-top: 1.5rem;
+  margin: 1.5rem 0;
   display: flex;
   /* align-items: flex-start; */
   /* padding: var(--padding-element);
@@ -22,8 +22,7 @@
 }
 
 .asideInner {
-  /* width: 25rem; */
-  height: 42rem;
+  height: 862px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;

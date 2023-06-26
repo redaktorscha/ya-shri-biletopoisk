@@ -1,29 +1,15 @@
 "use client";
-import { useContext } from "react";
 import Link from "next/link";
 import styles from "./Ticket.module.css";
 import Image from "next/image";
-import { Card } from "../Card/Card";
+import { Card } from "@/components/Card/Card";
+import { TicketCounter } from "@/components/TicketCounter/TicketCounter";
 import { useSelector, useDispatch } from "react-redux";
 import {
   incrementItemCount,
   decrementItemCount,
   setItemForRemove,
 } from "@/store/slices/cartSlice";
-
-const IconButton = ({ handleClick, iconHref, isDisabled, buttonClass }) => {
-  return (
-    <button
-      disabled={isDisabled}
-      className={`${buttonClass} ${styles.ticketButton}`}
-      onClick={handleClick}
-    >
-      <svg className={styles.ticketButtonIcon}>
-        <use href={iconHref} />
-      </svg>
-    </button>
-  );
-};
 
 export const Ticket = ({
   id,
@@ -114,43 +100,11 @@ export const Ticket = ({
             </span>
           </div> */}
         </div>
-        <div className={styles.ticketInteraction}>
-          <IconButton
-            handleClick={() => {
-              if (isCheckoutItem) {
-                if (count === 1) {
-                  dispatch(setItemForRemove({ id }));
-                  openModal();
-                } else {
-                  dispatch(decrementItemCount({ id }));
-                }
-              } else {
-                dispatch(decrementItemCount({ id }));
-              }
-            }}
-            iconHref={"#minus-icon"}
-            isDisabled={isDisabledDecrement}
-            buttonClass={buttonClassDecrement}
-          />
-          <span className={styles.ticketCountLabel}>{count}</span>
-          <IconButton
-            handleClick={() => {
-              dispatch(incrementItemCount({ id }));
-            }}
-            iconHref={"#plus-icon"}
-            isDisabled={isDisabledIncrement}
-            buttonClass={buttonClassIncrement}
-          />
-          {isCheckoutItem && (
-            <div className={styles.removeButtonWrapper}>
-              <button onClick={openModal} className={styles.removeButton}>
-                <svg className={styles.closeButtonIcon}>
-                  <use href="#close-icon" />
-                </svg>
-              </button>
-            </div>
-          )}
-        </div>
+        <TicketCounter
+          isCheckoutItem={isCheckoutItem}
+          openModal={openModal}
+          id={id}
+        />
       </div>
     </Card>
   );

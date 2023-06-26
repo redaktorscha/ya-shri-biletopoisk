@@ -6,6 +6,7 @@ import {
   useGetCinemasQuery,
 } from "@/services/dataApi";
 import { setTickets } from "@/store/slices/ticketsSlice";
+import { setCinemaList } from "@/store/slices/cinemaSlice";
 import { Ticket } from "@/components/Ticket/Ticket";
 import { Text } from "@/components/Text/Text";
 import styles from "./TicketSelection.module.css";
@@ -19,6 +20,9 @@ export const TicketSelection = () => {
   // const [hasError, setHasError] = useState(false);
   const dispatch = useDispatch();
   let tickets = [];
+  let cinemaList = [];
+
+  const getCinemaList = (cinemas) => cinemas.map(({ name }) => name);
 
   const getTickets = (movies, cinemas) => {
     const tickets = [];
@@ -70,12 +74,11 @@ export const TicketSelection = () => {
 
   const isLoading = isLoadingMovies || isLoadingCinemas;
   const isError = hasMoviesError || hasCinemasError;
-
+  
   // const filterState = useSelector((state) => state.filters);
   // const activeFilters = Object.keys(filterState).filter(
   //   (key) => filterState[key] !== null
   // );
-
 
   // useEffect(() => {
   //   if (tickets.length > 0) {
@@ -84,7 +87,9 @@ export const TicketSelection = () => {
   // });
   if (cinemaData && movieData) {
     tickets = getTickets(movieData, cinemaData);
+    cinemaList = getCinemaList(cinemaData);
     dispatch(setTickets({ tickets }));
+    dispatch(setCinemaList({ cinemaList }));
   }
 
   if (isError) {

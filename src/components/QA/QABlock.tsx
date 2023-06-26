@@ -4,8 +4,8 @@ import { useCallback, useState, useContext } from "react";
 import { AccordionContext } from "@/contexts/AccordionContext";
 
 import styles from "./QABlock.module.css";
-import { Card } from "../Card/Card";
-import { Text } from "../Text/Text";
+import { Card } from "@/components/Card/Card";
+import { Text } from "@/components/Text/Text";
 
 const questionsAnswers = [
   {
