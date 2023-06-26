@@ -1,9 +1,9 @@
 "use client";
-import { Card } from "../Card/Card";
-import { Text } from "../Text/Text";
-import { Portal } from "../Portal/Portal";
+import { Card } from "@/components/Card/Card";
+import { Text } from "@/components/Text/Text";
+import { Portal } from "@/components/Portal/Portal";
 import styles from "./Modal.module.css";
-import { ModalContext } from "../../contexts/ModalContext";
+import { ModalContext } from "@/contexts/ModalContext";
 import { useContext } from "react";
 
 const ModalButton = ({ variant, title }) => {
@@ -17,20 +17,19 @@ const ModalButton = ({ variant, title }) => {
 
 export const Modal = () => {
   const { closeModal } = useContext(ModalContext);
-  console.log(closeModal.toString());
   return (
-    <Portal>
+    <Portal selector="body">
       <div
         role="button"
         className={styles.modalBackdrop}
-        onClick={() => closeModal(false)}
+        onClick={closeModal}
       >
         <div className={styles.modalWrapper}>
           <Card>
             <div className={styles.modalWrapperInner}>
               <div className={styles.modalUpper}>
                 <h3 className={styles.modalHeading}>Удаление билета</h3>
-                <button onClick={() => closeModal(false)} className={styles.modalCloseButton}>
+                <button onClick={closeModal} className={styles.modalCloseButton}>
                   <svg className={styles.closeButtonIcon}>
                     <use href="#close-icon" />
                   </svg>
