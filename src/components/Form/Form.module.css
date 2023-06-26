@@ -97,16 +97,6 @@
   background-color: var(--white);
 }
 
-.pos1 {
-  top: 230px;
-  left: 24px;
-}
-
-.pos2 {
-  top: 334px;
-  left: 24px;
-}
-
 .optionElem {
   display: flex;
   align-self: stretch;

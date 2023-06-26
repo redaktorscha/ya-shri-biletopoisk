@@ -75,7 +75,7 @@ export const TicketSelection = () => {
   // const activeFilters = Object.keys(filterState).filter(
   //   (key) => filterState[key] !== null
   // );
-  // console.log("activeFilters", activeFilters);
+
 
   // useEffect(() => {
   //   if (tickets.length > 0) {
@@ -136,7 +136,7 @@ export const TicketSelection = () => {
               rating={rating}
               cinema={cinema}
               isCheckoutItem={false}
-              clickHandler={null}
+              openModal={null}
             />
           )
         )}

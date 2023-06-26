@@ -121,13 +121,13 @@
   line-height: 20px;
 }
 
-.closeButtonWrapper {
+.removeButtonWrapper {
   display: flex;
   align-items: center;
   padding-left: 1.5rem;
 }
 
-.closeButton {
+.removeButton {
   width: 1.25rem;
   height: 1.25rem;
   border: none;
@@ -135,7 +135,7 @@
   background-color: transparent;
 }
 
-.closeButton:hover {
+.removeButton:hover {
   cursor: pointer;
 }
 

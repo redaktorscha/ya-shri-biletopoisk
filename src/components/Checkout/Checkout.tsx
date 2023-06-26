@@ -1,7 +1,6 @@
 "use client";
 import { useCallback, useState } from "react";
 import { Card } from "@/components/Card/Card";
-import { Text } from "@/components/Text/Text";
 import { Modal } from "@/components/Modal/Modal";
 import { ModalContext } from "@/contexts/ModalContext";
 import { Ticket } from "@/components/Ticket/Ticket";
@@ -27,7 +26,7 @@ export const Checkout = () => {
   const closeModal = useCallback(() => setIsModalOpen(false), []);
 
   const tickets = useSelector((state) => state.tickets);
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart.items);
 
   const cartIndexes = cart.map(({ id }) => id);
   const ticketsInCart = tickets.filter(({ id }) => cartIndexes.includes(id));
@@ -50,7 +49,7 @@ export const Checkout = () => {
                   rating={rating}
                   cinema={cinema}
                   isCheckoutItem
-                  clickHandler={openModal}
+                  openModal={openModal}
                 />
               )
             )}
@@ -59,15 +58,13 @@ export const Checkout = () => {
         {!hasTickets && (
           <div className={styles.emptyCheckoutBlock}>
             <div className={styles.emptyCheckoutInner}>
-              <Card>
-                <Text>В вашей корзине нет билетов...</Text>
-                <Image
-                  src="/empty.png"
-                  width={400}
-                  height={220}
-                  alt="no tickets"
-                />
-              </Card>
+              <h1>В вашей корзине нет билетов...</h1>
+              <Image
+                src="/popcorn.png"
+                width={400}
+                height={220}
+                alt="no tickets"
+              />
             </div>
           </div>
         )}

@@ -1,11 +1,15 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useContext } from "react";
 import Link from "next/link";
 import styles from "./Ticket.module.css";
 import Image from "next/image";
 import { Card } from "../Card/Card";
 import { useSelector, useDispatch } from "react-redux";
-import { incrementItemCount, decrementItemCount, deleteItem } from '@/store/slices/cartSlice';
+import {
+  incrementItemCount,
+  decrementItemCount,
+  setItemForRemove,
+} from "@/store/slices/cartSlice";
 
 const IconButton = ({ handleClick, iconHref, isDisabled, buttonClass }) => {
   return (
@@ -30,9 +34,8 @@ export const Ticket = ({
   rating,
   cinema,
   isCheckoutItem,
-  clickHandler,
+  openModal,
 }) => {
-
   const dispatch = useDispatch();
   // const [count, setCount] = useState(0);
 
@@ -44,12 +47,9 @@ export const Ticket = ({
   //   () => setCount((curCount) => curCount - 1),
   //   []
   // );
-  const cartState = useSelector((state) => state.cart);
-  console.log('cartState', cartState);
+  const cartState = useSelector((state) => state.cart.items);
   const currentTicket = cartState.find((item) => item.id === id);
-  console.log(currentTicket, currentTicket);
   const count = currentTicket === undefined ? 0 : currentTicket.count;
-  console.log('count', count);
   const MAX_TICKETS = 30;
   const MIN_TICKETS = 0;
 
@@ -117,7 +117,16 @@ export const Ticket = ({
         <div className={styles.ticketInteraction}>
           <IconButton
             handleClick={() => {
-              dispatch(decrementItemCount({ id }))
+              if (isCheckoutItem) {
+                if (count === 1) {
+                  dispatch(setItemForRemove({ id }));
+                  openModal();
+                } else {
+                  dispatch(decrementItemCount({ id }));
+                }
+              } else {
+                dispatch(decrementItemCount({ id }));
+              }
             }}
             iconHref={"#minus-icon"}
             isDisabled={isDisabledDecrement}
@@ -126,15 +135,15 @@ export const Ticket = ({
           <span className={styles.ticketCountLabel}>{count}</span>
           <IconButton
             handleClick={() => {
-              dispatch(incrementItemCount({id}))
+              dispatch(incrementItemCount({ id }));
             }}
             iconHref={"#plus-icon"}
             isDisabled={isDisabledIncrement}
             buttonClass={buttonClassIncrement}
           />
           {isCheckoutItem && (
-            <div className={styles.closeButtonWrapper}>
-              <button onClick={clickHandler} className={styles.closeButton}>
+            <div className={styles.removeButtonWrapper}>
+              <button onClick={openModal} className={styles.removeButton}>
                 <svg className={styles.closeButtonIcon}>
                   <use href="#close-icon" />
                 </svg>

@@ -82,9 +82,19 @@
   color: var(--orange);
 }
 
+.modalButtonOutline:hover {
+  border: 1px solid var(--orange-hovered);
+  background-color: var(--orange-tertiary);
+}
+
 .modalButtonSolid {
   border: none;
   background-color: var(--orange);
+  color: var(--white);
+}
+
+.modalButtonSolid:hover {
+  background-color: var(--orange-hovered);
   color: var(--white);
 }
 

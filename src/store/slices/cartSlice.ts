@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [];
+const initialState = {
+  items: [],
+  itemForRemoveId: null,
+};
 
 const cartSlice = createSlice({
   name: "cart",
@@ -8,17 +11,17 @@ const cartSlice = createSlice({
   reducers: {
     incrementItemCount: (state, { payload }) => {
       const { id } = payload;
-      const existingItem = state.find((item) => item.id === id);
+      const existingItem = state.items.find((item) => item.id === id);
 
       if (existingItem) {
-        return state.map((item) => {
+        state.items = state.items.map((item) => {
           if (item.id === id) {
             return { ...item, count: item.count + 1 };
           }
           return item;
         });
       } else {
-        state.push({
+        state.items.push({
           id,
           count: 1,
         });
@@ -27,13 +30,13 @@ const cartSlice = createSlice({
 
     decrementItemCount: (state, { payload }) => {
       const { id } = payload;
-      const existingItem = state.find((item) => item.id === id);
+      const existingItem = state.items.find((item) => item.id === id);
 
       if (existingItem.count === 1) {
-        return state.filter((item) => item.id !== id);
+        state.items = state.items.filter((item) => item.id !== id);
       }
 
-      return state.map((item) => {
+      state.items = state.items.map((item) => {
         if (item.id === id) {
           return { ...item, count: item.count - 1 };
         }
@@ -41,12 +44,22 @@ const cartSlice = createSlice({
       });
     },
 
-    deleteItem: (state, {payload}) => {
+    deleteItem: (state, { payload }) => {
       const { id } = payload;
-      return state.filter((item) => item.id !== id);
-    }
+      state.items = state.items.filter((item) => item.id !== id);
+    },
+
+    setItemForRemove: (state, { payload }) => {
+      const { id } = payload;
+      state.itemForRemoveId = id;
+    },
   },
 });
 
-export const { incrementItemCount, decrementItemCount, deleteItem } = cartSlice.actions;
+export const {
+  incrementItemCount,
+  decrementItemCount,
+  deleteItem,
+  setItemForRemove,
+} = cartSlice.actions;
 export default cartSlice.reducer;
