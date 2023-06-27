@@ -97,7 +97,6 @@ const DropDownSelect = ({ filterName, title, placeholder, id }) => {
 
   useEffect(() => {
     if (value !== defaultSelect) {
-      console.log(value);
       dispatch(setActiveFilter({ filterName, filterValue: value }));
     } else {
       dispatch(setActiveFilter({ filterName, filterValue: null }));
