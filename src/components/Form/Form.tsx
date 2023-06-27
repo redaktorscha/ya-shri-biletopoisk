@@ -4,26 +4,20 @@ import {
   useEffect,
   useRef,
   useCallback,
-  useMemo,
   useContext,
 } from "react";
 import { Portal } from "@/components/Portal/Portal";
 import { DropDownContext } from "@/contexts/DropDownContext";
 import { setActiveFilter } from "@/store/slices/filterSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./Form.module.css";
 
 const InputText = ({ filterName, title, placeholder, id }) => {
   const [value, setValue] = useState("");
-  // const [isActive, setIsActive] = useState(false);
-  // const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null);
   const dispatch = useDispatch();
 
-  // const formElementClass = (isActive || isFocused)
-  //   ? `${styles.formElement} ${styles.formElementActive}`
-  //   : `${styles.formElement}`;
 
   useEffect(() => {
     if (inputRef.current) {
@@ -34,7 +28,6 @@ const InputText = ({ filterName, title, placeholder, id }) => {
   useEffect(() => {
     if (value !== "") {
       dispatch(setActiveFilter({ filterName, filterValue: value }));
-      console.log('value', value);
     } else {
       dispatch(setActiveFilter({ filterName, filterValue: null }));
     }
@@ -84,17 +77,11 @@ const DropDownSelect = ({ filterName, title, placeholder, id }) => {
     setIsOpen(!isOpen);
   }, [isOpen]);
 
-  const optionsGenre = useMemo(
-    () => ["Не выбрано", "action", "fantasy", "comedy", "horror"],
-    []
-  );
 
-  const optionsCinemaList = useMemo(
-    () => ["Не выбрано", "Синема сад", "4 с половиной звезды", "Дружба"],
-    []
-  );
+  const optionsGenre = useSelector((state) => state.genre);
+  const optionsCinemaList = useSelector((state) => state.cinema).map(({name}) => name);
 
-  const currentList = filterName === "genre" ? optionsGenre : optionsCinemaList;
+  const currentList = filterName === "genre" ? ["Не выбрано", ...optionsGenre] : ["Не выбрано", ...optionsCinemaList];
 
   const selectOption = useCallback(
     (selected, defaultValue) => {
@@ -190,15 +177,6 @@ const FormControl = ({ type, filterName, title, placeholder, id }) => {
 };
 
 export const Form = () => {
-  // const [activeFilter, setActiveFilter] = useState(null);
-
-  // const switchActiveFilter = useCallback(
-  //   (curFilter) => {
-  //     const newFilter = curFilter === activeFilter ? null : itemId;
-  //     setActiveFilter(newId);
-  //   },
-  //   [activeFilter]
-  // );
 
   const classes = {
     dd1: "pos1",

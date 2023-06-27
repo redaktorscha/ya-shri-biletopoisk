@@ -51,9 +51,6 @@
 
 .checkoutLink {
   display: flex;
-  /* border: none;
-  outline: transparent;
-  background-color: transparent; */
 }
 
 .checkoutLink:hover {

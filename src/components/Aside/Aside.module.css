@@ -3,13 +3,8 @@
   top: 85px;
   left: 1.5rem;
   width: 25rem;
-  /* margin-bottom: 1.5rem; */
   margin: 1.5rem 0;
   display: flex;
-  /* align-items: flex-start; */
-  /* padding: var(--padding-element);
-  border-radius: var(--border-rad-default);
-  background: var(--white); */
 }
 
 .asideHeading {

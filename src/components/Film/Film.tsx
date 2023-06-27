@@ -10,23 +10,6 @@ import { Text } from "@/components/Text/Text";
 import { TicketCounter } from "@/components/TicketCounter/TicketCounter";
 import Image from "next/image";
 
-// const InfoBlock = () => {
-//   return (
-//     <div className={styles.infoBlock}>
-//       {Object.keys(filmFields).map((key) => {
-//         return (
-//           <div key={key}>
-//             <span
-//               className={`${styles.text} ${styles.textBold}`}
-//             >{`${key}: `}</span>
-//             <span className={styles.text}>{value}</span>
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// };
-
 const InfoBlock = ({ title, text }) => {
   return (
     <div>
@@ -63,7 +46,7 @@ const FilmDescription = ({
 
         <div className={styles.filmDescription}>
           <h1 className={styles.headingPrimary}>{title}</h1>
-          <TicketCounter isCheckoutItem={false} openModal={null} id={id}/>
+          <TicketCounter isCheckoutItem={false} openModal={null} id={id} />
           <div className={styles.infoBlock}>
             <InfoBlock title={"Жанр"} text={genre} />
             <InfoBlock title={"Год выпуска"} text={releaseYear} />
@@ -116,15 +99,6 @@ export const Film = () => {
     isLoading: isReviewLoading,
     error: isReviewError,
   } = useGetMovieReviewsQuery(movieId);
-
-  // const selectMoviesSlice = (state) => state.movies;
-  // const selectReviewsSlice = (state) => state.reviews;
-
-  // const getMovieReviews = (state, id) => selectReviewsSlice(state)[id];
-  // const getMovieData = (state, id) => selectMoviesSlice(state)[id];
-
-  // const movieReviews = useSelector((state) => getMovieReviews(state, movieId));
-  // const movieData = useSelector((state) => getMovieData(state, movieId));
 
   if (isMovieError || isReviewError) {
     return <div>Что-то пошло не так...</div>;

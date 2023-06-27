@@ -22,36 +22,6 @@ export const Ticket = ({
   isCheckoutItem,
   openModal,
 }) => {
-  const dispatch = useDispatch();
-  // const [count, setCount] = useState(0);
-
-  // const incrementCount = useCallback(
-  //   () => setCount((curCount) => curCount + 1),
-  //   []
-  // );
-  // const decrementCount = useCallback(
-  //   () => setCount((curCount) => curCount - 1),
-  //   []
-  // );
-  const cartState = useSelector((state) => state.cart.items);
-  const currentTicket = cartState.find((item) => item.id === id);
-  const count = currentTicket === undefined ? 0 : currentTicket.count;
-  const MAX_TICKETS = 30;
-  const MIN_TICKETS = 0;
-
-  const isDisabledIncrement = count === MAX_TICKETS;
-  const isDisabledDecrement = count === MIN_TICKETS;
-
-  const buttonClassIncrement =
-    count === MAX_TICKETS
-      ? styles.ticketButtonDisabled
-      : styles.ticketButtonActive;
-
-  const buttonClassDecrement =
-    count === MIN_TICKETS
-      ? styles.ticketButtonDisabled
-      : styles.ticketButtonActive;
-
   return (
     <Card>
       <div className={styles.ticketWrap}>
@@ -65,10 +35,7 @@ export const Ticket = ({
 
         <div className={styles.filmDetails}>
           <Link href={`/films/${movieId}`}>
-            <h2 className={styles.filmName}>
-              {title}
-              {/* <div className={styles.filmRating}>{rating}</div> */}
-            </h2>
+            <h2 className={styles.filmName}>{title}</h2>
           </Link>
 
           <div>
@@ -93,12 +60,6 @@ export const Ticket = ({
               {cinema}
             </span>
           </div>
-          {/* <div>
-            <span className={`${styles.text} ${styles.textBold}`}>Сеанс: </span>
-            <span className={`${styles.text} ${styles.textItalic}`}>
-              {genre}
-            </span>
-          </div> */}
         </div>
         <TicketCounter
           isCheckoutItem={isCheckoutItem}
@@ -109,32 +70,3 @@ export const Ticket = ({
     </Card>
   );
 };
-
-// const Tickets = () => {
-//   const filmDetails = {
-//     filmName: "Властелин колец: Братство кольца",
-//     filmGenre: "Фэнтези",
-//   };
-
-//   const tickets = [
-//     filmDetails,
-//     filmDetails,
-//     filmDetails,
-//     filmDetails,
-//     filmDetails,
-//   ];
-
-//   return (
-//     <div className={styles.ticketsWrapper}>
-//       {tickets.map(({ filmName, filmGenre }, index) => (
-//         <Ticket
-//           key={index}
-//           filmName={filmName}
-//           filmGenre={filmGenre}
-//           isCheckoutItem={false}
-//           clickHandler={null}
-//         />
-//       ))}
-//     </div>
-//   );
-// };

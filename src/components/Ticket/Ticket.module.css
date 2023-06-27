@@ -1,11 +1,4 @@
 .ticketWrap {
-  /* display: flex;
-  flex-grow: 1;
-  align-items: flex-start;
-  padding: var(--padding-element);
-  border-radius: var(--border-rad-default);
-  background: var(--white);
-  flex-shrink: 0; */
   position: relative;
   flex-grow: 1;
   display: flex;
@@ -13,13 +6,12 @@
 }
 
 .imageWrap {
-  /* width: 6.25rem;
-  height: 8rem; */
   border-radius: var(--border-rad-default);
 }
 
 .ticketsWrapper {
   display: flex;
+  align-self: flex-start;
   flex-grow: 1;
   flex-direction: column;
   gap: 1rem;
@@ -38,8 +30,6 @@
   position: relative;
   color: var(--text-primary);
   font-size: 20px;
-  /* font-family: SF Pro Text; */
-  /* font-weight: 600; */
   line-height: 20px;
 }
 
