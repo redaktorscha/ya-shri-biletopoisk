@@ -1,7 +1,6 @@
 "use client";
 
 import { useGetMovieQuery } from "@/services/dataApi";
-import { useSelector } from "react-redux";
 import { useGetMovieReviewsQuery } from "@/services/dataApi";
 import { usePathname } from "next/navigation";
 import styles from "./Film.module.css";

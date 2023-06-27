@@ -5,9 +5,8 @@ import { setTickets } from "@/store/slices/ticketsSlice";
 import { setCinemaList } from "@/store/slices/cinemaSlice";
 import { setGenreList } from "@/store/slices/genreSlice";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Suspense } from "react";
-import styles from "./page.module.css";
 import { MainContent } from "@/components/MainContent/MainContent";
 import { TicketSelection } from "@/components/TicketSelection/TicketSelection";
 import { Text } from "@/components/Text/Text";
@@ -65,8 +64,8 @@ export default function HomePage() {
       const cinemasRoute = [baseUrl, "cinemas"].join("/");
 
       try {
-        const responseMovies = await axios.get(moviesRoute);
-        const responseCinemas = await axios.get(cinemasRoute);
+        const responseMovies = axios.get(moviesRoute);
+        const responseCinemas = axios.get(cinemasRoute);
 
         const [{ data: movieData }, { data: cinemaData }] = await Promise.all([
           responseMovies,

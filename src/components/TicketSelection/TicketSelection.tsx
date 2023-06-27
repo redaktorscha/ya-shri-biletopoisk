@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { Ticket } from "@/components/Ticket/Ticket";
 import { Text } from "@/components/Text/Text";
 import styles from "./TicketSelection.module.css";
@@ -18,7 +18,8 @@ export const TicketSelection = () => {
 
   let tickets = useSelector((state) => state.tickets) || [];
 
-  const { cinema, genre, title } = useSelector((state) => state.filters) || {};
+  const filters = useSelector((state) => state.filters) || {};
+  const { title, genre } = filters;
 
   if (genre) {
     tickets = filterByGenre(tickets, genre);
