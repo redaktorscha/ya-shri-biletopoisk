@@ -4,6 +4,7 @@ import cartReducer from "./cartSlice";
 import ticketReducer from "./ticketsSlice";
 import filterReducer from "./filterSlice";
 import cinemaReducer from "./cinemaSlice";
+import genreReducer from "./genreSlice";
 
 export default configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export default configureStore({
     tickets: ticketReducer,
     filters: filterReducer,
     cinema: cinemaReducer,
+    genre: genreReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(dataApi.middleware),

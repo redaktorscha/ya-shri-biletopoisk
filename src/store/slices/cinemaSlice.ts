@@ -7,7 +7,7 @@ const cinemaSlice = createSlice({
   initialState,
   reducers: {
     setCinemaList: (state, { payload }) => {
-      state = payload.cinemaList;
+      return [...payload.cinemaList];
     },
   },
 });
