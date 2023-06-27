@@ -33,9 +33,6 @@ const InputText = ({ filterName, title, placeholder, id }) => {
     }
   }, [dispatch, filterName, value]);
 
-  const { cinema } = useSelector((state) => state.filters) || null;
-  console.log(cinema);
-
   return (
     <div className={styles.formControl}>
       <label className={styles.formLabel} htmlFor={id}>
